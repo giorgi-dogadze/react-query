@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { useQuery } from "react-query";
 
 const fetchSuperHeroes = () => {
@@ -6,20 +7,40 @@ const fetchSuperHeroes = () => {
 };
 
 export const RQSuperHeroesPage = () => {
-  const { isLoading, data, isError, error, isFetching } = useQuery(
+  const [refetchIntervalTime, setRefetchIntervalTime] = useState(3000);
+  const onSuccess = (data) => {
+    if (data.data.length === 4) {
+      console.log("gio");
+      setRefetchIntervalTime(false);
+    }
+    console.log("refetchIntervalTime-1", refetchIntervalTime);
+  };
+
+  const onError = (error) => {
+    if (data.data.length === 4) {
+      setRefetchIntervalTime(false);
+    }
+  };
+
+  console.log("refetchIntervalTime-2", refetchIntervalTime);
+
+  const { isLoading, data, isError, error, isFetching, refetch } = useQuery(
     "super-heroes",
     fetchSuperHeroes,
     {
       // cacheTime: 5000, //5s
       // staleTime: 10000, //10s
-      refetchOnMount: true,
-      refetchOnWindowFocus: true,
-      refetchInterval: 2000,
-      refetchIntervalInBackground: true,
+      // refetchOnMount: true,
+      // refetchOnWindowFocus: true,
+      refetchInterval: refetchIntervalTime,
+      // refetchIntervalInBackground: true,
+      // enabled: false,
+      onSuccess: onSuccess,
+      onError: onError,
     }
   );
 
-  console.log("isFetching", isFetching);
+  console.log("isLoading", isLoading, "isFetching", isFetching);
 
   if (isLoading) {
     return <h2> Loading...</h2>;
@@ -32,6 +53,7 @@ export const RQSuperHeroesPage = () => {
   return (
     <>
       <h2>React Query Super Heroes Page</h2>
+      <button onClick={() => refetch()}>Refetch</button>
       {data?.data.map((hero) => {
         return <div key={hero.id}>{hero.name}</div>;
       })}
