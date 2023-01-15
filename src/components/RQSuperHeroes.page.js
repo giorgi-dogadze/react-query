@@ -32,11 +32,14 @@ export const RQSuperHeroesPage = () => {
       // staleTime: 10000, //10s
       // refetchOnMount: true,
       // refetchOnWindowFocus: true,
-      refetchInterval: refetchIntervalTime,
+      // refetchInterval: refetchIntervalTime,
       // refetchIntervalInBackground: true,
       // enabled: false,
-      onSuccess: onSuccess,
-      onError: onError,
+      // onSuccess: onSuccess,
+      // onError: onError,
+      select: (data) => {
+        return data.data?.map((data) => data.name);
+      },
     }
   );
 
@@ -54,8 +57,8 @@ export const RQSuperHeroesPage = () => {
     <>
       <h2>React Query Super Heroes Page</h2>
       <button onClick={() => refetch()}>Refetch</button>
-      {data?.data.map((hero) => {
-        return <div key={hero.id}>{hero.name}</div>;
+      {data?.map((hero) => {
+        return <div key={hero}>{hero}</div>;
       })}
     </>
   );
