@@ -16,8 +16,8 @@ export const useSuperHeroesData = () => {
     // enabled: false,
     // onSuccess: onSuccess,
     // onError: onError,
-    select: (data) => {
-      return data.data?.map((data) => data.name);
-    },
+    // select: (data) => {
+    //   return data.data?.map((data) => data.name);
+    // },
   });
 };
