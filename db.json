@@ -34,5 +34,17 @@
       "id":3,
       "name": "Rachel Green"
     }
+  ],
+  "users":[
+    {
+      "id":"tchiaturaForeva@gmail.com",
+      "channelId": "Tchiaturians"
+    }
+  ],
+  "channels":[
+    {
+      "id": "Tchiaturians",
+      "courses":["how to become intelligent", "how to be cool with neighbors"]
+    }
   ]
 }
