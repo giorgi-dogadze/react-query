@@ -19,10 +19,7 @@ export const RQSuperHeroesPage = () => {
   // };
   // console.log("refetchIntervalTime-2", refetchIntervalTime);
 
-  const { isLoading, data, isError, error, isFetching, refetch } =
-    useSuperHeroesData();
-
-  console.log("isLoading", isLoading, "isFetching", isFetching);
+  const { isLoading, data, isError, error, refetch } = useSuperHeroesData();
 
   if (isLoading) {
     return <h2> Loading...</h2>;
