@@ -31,13 +31,33 @@ export const useAddSuperHeroData = () => {
   const queryClient = useQueryClient();
   return useMutation(addSuperHero, {
     // onSuccess: () => queryClient.invalidateQueries("super-heroes"), // gonna refetch query with this key
-    onSuccess: (data) => {
+    // onSuccess: (data) => {
+    //   queryClient.setQueryData("super-heroes", (oldQueryData) => {
+    //     return {
+    //       ...oldQueryData,
+    //       data: [...oldQueryData.data, data.data],
+    //     };
+    //   });
+    //} change cached values of super heroes
+    onMutate: (newHero) => {
+      queryClient.cancelQueries("super-heroes");
+      const previousHeroesData = queryClient.getQueryData("super-heroes");
       queryClient.setQueryData("super-heroes", (oldQueryData) => {
         return {
           ...oldQueryData,
-          data: [...oldQueryData.data, data.data],
-        }; //change cached values of super heroes
+          data: [
+            ...oldQueryData.data,
+            { id: oldQueryData?.data?.length + 1, ...newHero },
+          ],
+        };
       });
+      return { previousHeroesData }; //we are returning this because if api call wasn't succeeded to rollback to this data
+    }, //executes when before mutation function is fired
+    onError: (_error, _hero, context) => {
+      queryClient.setQueryData("super-heroes", context.previousHeroesData); //if api call was failed we do rollback to apply to cache old data that was returned from onMutate function in context object
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries("super-heroes"); //we are refetching super heroes to make sure that client and server sides are in sync
     },
   });
 };
