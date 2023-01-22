@@ -30,6 +30,14 @@ export const useSuperHeroesData = () => {
 export const useAddSuperHeroData = () => {
   const queryClient = useQueryClient();
   return useMutation(addSuperHero, {
-    onSuccess: () => queryClient.invalidateQueries("super-heroes"), // gonna refetch query with this key
+    // onSuccess: () => queryClient.invalidateQueries("super-heroes"), // gonna refetch query with this key
+    onSuccess: (data) => {
+      queryClient.setQueryData("super-heroes", (oldQueryData) => {
+        return {
+          ...oldQueryData,
+          data: [...oldQueryData.data, data.data],
+        }; //change cached values of super heroes
+      });
+    },
   });
 };
