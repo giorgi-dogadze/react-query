@@ -19,32 +19,40 @@
       "id": 4,
       "name": "Iron Man",
       "alterEgo": "Tony Stark"
+    },
+    {
+      "name": "murwa",
+      "alterEgo": "gio dogadze",
+      "id": 5
     }
   ],
-  "friends":[
+  "friends": [
     {
-      "id":1,
+      "id": 1,
       "name": "Chandler Bing"
     },
     {
-      "id":2,
+      "id": 2,
       "name": "Joey Tribbiani"
     },
     {
-      "id":3,
+      "id": 3,
       "name": "Rachel Green"
     }
   ],
-  "users":[
+  "users": [
     {
-      "id":"tchiaturaForeva@gmail.com",
+      "id": "tchiaturaForeva@gmail.com",
       "channelId": "Tchiaturians"
     }
   ],
-  "channels":[
+  "channels": [
     {
       "id": "Tchiaturians",
-      "courses":["how to become intelligent", "how to be cool with neighbors"]
+      "courses": [
+        "how to become intelligent",
+        "how to be cool with neighbors"
+      ]
     }
   ],
   "colors": [
